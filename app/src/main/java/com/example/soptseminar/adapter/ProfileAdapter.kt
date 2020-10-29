@@ -31,14 +31,6 @@ import kotlinx.android.synthetic.main.profile_item.view.*
 // 그렇다면, clickListener를 달아줘야 하는 시점은 ViewHolder에서가 되는 것입니다.
 // 그래서 bind 함수에 onClickListner를 추가해 이를 itemView에 달아주었습니다.
 
-// why? ViewHolder에다가 animator를 달아주어야 하는가????
-
-// dragListener의 onDrag 함수를 ViewHolder가 최초로 생성이 될 때 사용합니다
-// why?
-// itemView 즉, 리사이클러뷰에 보여질 view를 데이터와 bind해주는 역할을 하는 ViewHolder에서
-// listener를 하나 더 추가해서 달아준다고 생각하면 됩니다.
-// 기존 clickListener도 달았는데 거기에 dragListener 달아준다고 무슨 일 생기는 것도 아니고
-
 class ProfileAdapter(
     private val context : Context,
 ) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>(){
