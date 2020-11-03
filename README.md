@@ -10,7 +10,8 @@
 
 ##  내용
 
-### 1차 과제 - 필수    완료날짜(20.11.02)
+### 1차 과제 - 필수    
+#### 완료날짜(20.11.02)
 
 ```kotlin
 <SignUpActivity.kt>
@@ -41,7 +42,8 @@ SignUpActivity에서 회원가입을 하게 되면 Toast메시지와 함께 inte
 기본적으로 Main과 SignUp 에는 ViewModel을 적용해 기타 데이터들을 보관할 수 있도록 구현했습니다.
 ```
 
-### 1차 과제 - 성장과제1    완료날짜(20.11.02)
+### 1차 과제 - 성장과제1    
+#### 완료날짜(20.11.02)
 
 ``` <SignUpActivity.kt>
 fun regist(){
@@ -55,7 +57,8 @@ SharedPreference에 값을 넣어 회원가입을 하고 이를 다른 액티비
 추후, Room으로 리팩토링하여 활용하기 쉽도록 구현할 예정입니다.
 ```
 
-### 1차 과제 - 성장과제2    완료날짜(20.11.02)
+### 1차 과제 - 성장과제2   
+#### 완료날짜(20.11.02)
 
 ``` <MainActivity.kt>
 // 자동로그인 함수
@@ -86,7 +89,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
 기존에 회원가입을 한 후에 다시 앱을 실행했을 떄 먼저 init() 함수를 실행 해 값이 있는 지 없는지를 확인한 후 있는 경우 자동로그인 할 수 있도록 구현했습니다.
 ```
 
-### 2차 과제 - 필수    완료날짜(20.11.02)
+### 2차 과제 - 필수   
+#### 완료날짜(20.11.02)
 
 ``` <ProfileAdapter.kt>
 class ProfileViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -129,7 +133,8 @@ override fun onBindViewHolder(
 디테일 액티비티에서는 이름을 제외한 데이터는 간략한 더미데이터를 통해 상세화면을 보여주도록 했습니다.
 ```
 
-### 2차 과제 - 성장과제1    완료날짜(20.11.02)
+### 2차 과제 - 성장과제1   
+#### 완료날짜(20.11.02)
 
 ``` <HomeActivity.kt>
 act_btn.setOnClickListener {
@@ -146,7 +151,8 @@ act_btn.setOnClickListener {
 FloatingButton이 클릭되면 boolean 값에 따라 gridLayoutManager와 LinearLayoutManager를 적용해줌으로써 layoutManager를 변경할 수 있도록 구현했습니다.
 ```
 
-### 2차 과제 - 성장과제2    완료날짜(20.11.02)
+### 2차 과제 - 성장과제2   
+#### 완료날짜(20.11.02)
 
 ```<HomeActivity.kt>
 // TouchHelper
