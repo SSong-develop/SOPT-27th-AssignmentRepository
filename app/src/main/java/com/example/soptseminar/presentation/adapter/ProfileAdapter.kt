@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.ProfileItemBinding
 import com.example.soptseminar.presentation.model.ProfileData
-import com.example.soptseminar.presentation.activity.HomeActivity
 import kotlinx.android.synthetic.main.profile_item.view.*
 
 
@@ -46,8 +45,7 @@ class ProfileAdapter(
         position: Int
     ) {
         val listener = View.OnClickListener {
-            val activity = context as HomeActivity
-            activity.detailPage(data[position])
+           // you need to make this one
         }
         holder.bind(data[position],listener)
     }

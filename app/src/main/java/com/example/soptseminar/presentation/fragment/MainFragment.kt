@@ -18,11 +18,18 @@ class MainFragment : Fragment() {
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentMainBinding>(inflater,R.layout.fragment_main,container,false)
         binding.loginBtn.setOnClickListener {view : View ->
-            view.findNavController().navigate(R.id.action_mainFragment_to_homeFragment)
+            view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToHomeFragment())
         }
         binding.signUpTxt.setOnClickListener {view : View ->
-            view.findNavController().navigate(R.id.action_mainFragment_to_signUpFragment)
+            view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToSignUpFragment())
         }
+        var args = arguments?.let {
+            MainFragmentArgs.fromBundle(it).let {
+                binding.mainIdEdt.setText(it.userId)
+                binding.mainPassEdt.setText(it.userPassword)
+            }
+        }
+
         return binding.root
     }
 }
