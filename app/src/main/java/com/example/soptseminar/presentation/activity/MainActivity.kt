@@ -11,26 +11,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.soptseminar.R
-import com.example.soptseminar.databinding.ActivityMainBinding
 import com.example.soptseminar.presentation.vm.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var autoLogin: SharedPreferences
-    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
+        /*binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java) // change ktx
         binding.mainviewmodel = viewModel
-        binding.activity = this
+        binding.activity = this*/
 
-        init()
+       /* init()*/
     }
 
-    fun init() {
+   /* fun init() {
         autoLogin = getSharedPreferences("autoLogin1", MODE_PRIVATE)
         auto(autoLogin)
     }
@@ -120,5 +119,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+    }*/
 }

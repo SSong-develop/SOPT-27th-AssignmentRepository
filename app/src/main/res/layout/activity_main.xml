@@ -1,97 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="mainviewmodel"
-            type="com.example.soptseminar.presentation.vm.MainViewModel" />
-        <variable
-            name="activity"
-            type="com.example.soptseminar.presentation.activity.MainActivity" />
-    </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.activity.MainActivity">
+
+    <fragment
+        android:id="@+id/myNavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.activity.MainActivity">
-
-        <TextView
-            android:id="@+id/main_logo_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:text="SOPT"
-            android:textSize="50sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/main_id_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="100dp"
-            android:textSize="24sp"
-            android:text="아이디"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_logo_txt" />
-
-        <EditText
-            android:id="@+id/main_id_edt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="36dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="아이디"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/main_id_txt"
-            app:layout_constraintTop_toBottomOf="@+id/main_id_txt" />
-
-        <TextView
-            android:id="@+id/main_pass_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="비밀번호"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/main_id_edt"
-            app:layout_constraintTop_toBottomOf="@+id/main_id_edt" />
-
-        <EditText
-            android:id="@+id/main_pass_edt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="비밀번호"
-            app:layout_constraintEnd_toEndOf="@+id/main_id_edt"
-            app:layout_constraintStart_toStartOf="@+id/main_pass_txt"
-            app:layout_constraintTop_toBottomOf="@+id/main_pass_txt" />
-
-        <Button
-            android:id="@+id/login_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="로그인"
-            android:onClick="@{activity::goLogin}"
-            app:layout_constraintEnd_toEndOf="@+id/main_pass_edt"
-            app:layout_constraintStart_toStartOf="@+id/main_pass_edt"
-            app:layout_constraintTop_toBottomOf="@+id/main_pass_edt" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/signUp_txt"
-            android:text="회원가입"
-            android:onClick="@{activity::goSign}"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/login_btn"
-            app:layout_constraintTop_toBottomOf="@+id/login_btn"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost = "true"
+        app:navGraph="@navigation/navigation"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
