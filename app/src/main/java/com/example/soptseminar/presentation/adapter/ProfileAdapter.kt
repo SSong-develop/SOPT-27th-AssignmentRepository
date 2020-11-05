@@ -1,30 +1,32 @@
-package com.example.soptseminar.adapter
+package com.example.soptseminar.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
-import com.example.soptseminar.model.ProfileData
-import com.example.soptseminar.ui.HomeActivity
+import com.example.soptseminar.databinding.ProfileItemBinding
+import com.example.soptseminar.presentation.model.ProfileData
+import com.example.soptseminar.presentation.activity.HomeActivity
 import kotlinx.android.synthetic.main.profile_item.view.*
 
 
 // ViewHolder의 역할을 다시 한번 생각해보아야 합니다.
 // Android의 Adapter 패턴은 Adapter가 데이터를 관리하고 리스트 형태의 View에게 데이터를 쏴주는 패턴입니다.
 // 언어를 좀 정확하게 쓸필요가 있어요
+
+// commit : Adapter의 생성자 인자 중 context를 제외시킴
 class ProfileAdapter(
     private val context : Context,
 ) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>(){
     var data = mutableListOf<ProfileData>()
 
-    class ProfileViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class ProfileViewHolder(val binding : ProfileItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data : ProfileData, listener : View.OnClickListener){
-            itemView.title_txt.text = data.title
-            itemView.subtitle_txt.text = data.subTitle
-            itemView.setOnClickListener(listener)
+            // Databinding의 profileData에 기존 data를 넘겨준다.
+            binding.profileData = data
         }
     }
 
@@ -32,8 +34,9 @@ class ProfileAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ProfileViewHolder {
-        val inflateView = LayoutInflater.from(context).inflate(R.layout.profile_item,parent,false)
-        return ProfileViewHolder(inflateView)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding : ProfileItemBinding = DataBindingUtil.inflate(layoutInflater,R.layout.profile_item,parent,false)
+        return ProfileViewHolder(binding)
     }
 
     override fun getItemCount(): Int = data.size

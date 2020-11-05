@@ -1,10 +1,8 @@
-package com.example.soptseminar.viewmodel
+package com.example.soptseminar.presentation.vm
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.soptseminar.model.User
 
 class MainViewModel : ViewModel() {
     // 데이터를 보관해주는

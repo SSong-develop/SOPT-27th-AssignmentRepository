@@ -1,4 +1,4 @@
-package com.example.soptseminar.ui
+package com.example.soptseminar.presentation.activity
 
 import android.content.Intent
 import android.graphics.Color
@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.soptseminar.R
-import com.example.soptseminar.adapter.ProfileAdapter
-import com.example.soptseminar.model.ProfileData
+import com.example.soptseminar.presentation.adapter.ProfileAdapter
+import com.example.soptseminar.presentation.model.ProfileData
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(){
@@ -101,7 +102,7 @@ class HomeActivity : AppCompatActivity(){
     }
 
     fun detailPage(data: ProfileData){
-        val intent = Intent(this,DetailActivity::class.java)
+        val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("title",data.title)
         intent.putExtra("subtitle",data.subTitle)
         intent.putExtra("date","2020-10-23")

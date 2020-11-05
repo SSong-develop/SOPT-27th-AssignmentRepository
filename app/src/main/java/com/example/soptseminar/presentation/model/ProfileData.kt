@@ -1,4 +1,4 @@
-package com.example.soptseminar.model
+package com.example.soptseminar.presentation.model
 
 data class ProfileData(
     var title : String,
