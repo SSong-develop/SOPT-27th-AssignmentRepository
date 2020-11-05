@@ -36,5 +36,13 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.soptseminar.presentation.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.soptseminar.presentation.fragment.DetailFragment"
+        android:label="DetailFragment" />
 </navigation>

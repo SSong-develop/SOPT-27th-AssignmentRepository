@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.ProfileItemBinding
@@ -44,8 +45,8 @@ class ProfileAdapter(
         holder: ProfileViewHolder,
         position: Int
     ) {
-        val listener = View.OnClickListener {
-           // you need to make this one
+        val listener = View.OnClickListener {view : View ->
+            view.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
         }
         holder.bind(data[position],listener)
     }
