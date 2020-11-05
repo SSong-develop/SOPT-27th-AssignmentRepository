@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.FragmentSignUpBinding
+import com.example.soptseminar.utils.Validator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,9 +31,18 @@ class SignUpFragment : Fragment() {
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentSignUpBinding>(inflater,R.layout.fragment_sign_up,container,false)
         binding.signUpOkBtn.setOnClickListener {view : View ->
-            // use safeArgs and sharedPref
-            view.findNavController().navigate(R.id.action_signUpFragment_to_mainFragment)
+
+            val id = binding.signUpIdEdt.text.toString()
+            val name = binding.signUpNameEdtxt.text.toString()
+            val password = binding.signUpPassEdt.text.toString()
+
+            if(Validator.isValidate(name,id,password)){
+                // use safeArgs and sharedPref
+                view.findNavController().navigate(R.id.action_signUpFragment_to_mainFragment)
+            }
+            Toast.makeText(requireContext().applicationContext,"empty",Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }
+
 }
