@@ -6,16 +6,16 @@
     <data>
         <variable
             name="signupviewmodel"
-            type="com.example.soptseminar.viewmodel.SignUpViewModel" />
+            type="com.example.soptseminar.presentation.vm.SignUpViewModel" />
         <variable
             name="signupactivity"
-            type="com.example.soptseminar.ui.SignUpActivity" />
+            type="com.example.soptseminar.presentation.activity.SignUpActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.SignUpActivity">
+        tools:context=".presentation.activity.SignUpActivity">
 
         <TextView
             android:id="@+id/signUp_name_txt"

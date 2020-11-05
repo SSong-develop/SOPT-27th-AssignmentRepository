@@ -1,8 +1,6 @@
-package com.example.soptseminar.viewmodel
+package com.example.soptseminar.presentation.vm
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.soptseminar.model.User
 
 class SignUpViewModel : ViewModel() {
 
