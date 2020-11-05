@@ -34,4 +34,16 @@ object SharedPref {
         editor?.apply()
     }
 
+    fun getStringValue(context : Context , KEY: String): String? {
+        return getInstance(context)?.getString(KEY,null)
+    }
+
+    fun putStirngValue(context : Context, KEY : String , value : String){
+        val editor = getInstance(context)?.edit()
+        value.let {
+            editor?.putString(KEY,it)
+        }
+        editor?.apply()
+    }
+
 }

@@ -24,6 +24,8 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentSignUpBinding>(inflater,R.layout.fragment_sign_up,container,false)
+        val viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+        binding.signupviewmodel = viewModel
 
         binding.signUpOkBtn.setOnClickListener {view : View ->
 
@@ -31,7 +33,9 @@ class SignUpFragment : Fragment() {
             val name = binding.signUpNameEdtxt.text.toString()
             val password = binding.signUpPassEdt.text.toString()
             if(Validator.isValidate(name,id,password)){
-                // sharedPref
+                viewModel.sharedPref.putStirngValue(requireContext(),"userName",name)
+                viewModel.sharedPref.putStirngValue(requireContext(),"userId",id)
+                viewModel.sharedPref.putStirngValue(requireContext(),"userPassword",password)
                 view.findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToMainFragment(name,id,password))
             }else{
                 Toast.makeText(requireContext().applicationContext,"empty",Toast.LENGTH_SHORT).show()
