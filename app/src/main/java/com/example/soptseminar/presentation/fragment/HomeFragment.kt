@@ -1,5 +1,6 @@
 package com.example.soptseminar.presentation.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,20 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.FragmentHomeBinding
 import com.example.soptseminar.presentation.adapter.ProfileAdapter
-import com.example.soptseminar.presentation.model.ProfileData
 import com.example.soptseminar.utils.MakeDummy
-import kotlinx.android.synthetic.main.activity_home.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
 
     private lateinit var profileAdapter : ProfileAdapter
@@ -41,6 +30,7 @@ class HomeFragment : Fragment() {
 
         setDummy(profileAdapter)
         setRecyclerView(binding.homeRecyclerView)
+        setTouchHelper(binding.homeRecyclerView)
         profileAdapter.notifyDataSetChanged()
 
         binding.actBtn.setOnClickListener {
@@ -49,7 +39,6 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-
 
     fun setDummy(profileAdapter: ProfileAdapter){
         MakeDummy.makeDummy(profileAdapter)
@@ -72,5 +61,41 @@ class HomeFragment : Fragment() {
                 isChecked = false
             }
         }
+    }
+
+    private fun setTouchHelper(recyclerView: RecyclerView) {
+        val itemTouchHelper = androidx.recyclerview.widget.ItemTouchHelper(object :
+            androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback(
+                androidx.recyclerview.widget.ItemTouchHelper.UP or androidx.recyclerview.widget.ItemTouchHelper.DOWN,
+                androidx.recyclerview.widget.ItemTouchHelper.START or androidx.recyclerview.widget.ItemTouchHelper.END
+            ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return profileAdapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                profileAdapter.removeItem(viewHolder.adapterPosition)
+            }
+
+            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+                super.onSelectedChanged(viewHolder, actionState)
+                if (actionState == androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG) {
+                    viewHolder?.itemView?.setBackgroundColor(Color.LTGRAY)
+                }
+            }
+
+            override fun clearView(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) {
+                super.clearView(recyclerView, viewHolder)
+                viewHolder.itemView.setBackgroundColor(Color.WHITE)
+            }
+        })
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 }
