@@ -7,15 +7,13 @@
         <variable
             name="signupviewmodel"
             type="com.example.soptseminar.presentation.vm.SignUpViewModel" />
-        <variable
-            name="signupactivity"
-            type="com.example.soptseminar.presentation.activity.SignUpActivity" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.activity.SignUpActivity">
+        tools:context=".presentation.fragment.SignUpFragment">
 
         <TextView
             android:id="@+id/signUp_name_txt"
@@ -87,12 +85,13 @@
             app:layout_constraintStart_toStartOf="@+id/signUp_pass_txt"
             app:layout_constraintTop_toBottomOf="@+id/signUp_pass_txt" />
 
+        <!-- button click need-->
         <Button
             android:id="@+id/signUp_ok_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="확인"
-            android:onClick="@{signupactivity::goMain}"
+            android:onClick="signUp"
             android:layout_marginTop="150dp"
             app:layout_constraintTop_toBottomOf="@+id/signUp_pass_edt"
             app:layout_constraintStart_toStartOf="@+id/signUp_pass_edt"

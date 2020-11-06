@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.ProfileItemBinding
 import com.example.soptseminar.presentation.model.ProfileData
-import com.example.soptseminar.presentation.activity.HomeActivity
 import kotlinx.android.synthetic.main.profile_item.view.*
 
 
@@ -45,9 +45,8 @@ class ProfileAdapter(
         holder: ProfileViewHolder,
         position: Int
     ) {
-        val listener = View.OnClickListener {
-            val activity = context as HomeActivity
-            activity.detailPage(data[position])
+        val listener = View.OnClickListener {view : View ->
+            view.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
         }
         holder.bind(data[position],listener)
     }
