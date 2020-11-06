@@ -1,4 +1,3 @@
-/*
 package com.example.soptseminar.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
@@ -26,4 +25,4 @@ class DetailActivity : AppCompatActivity() {
         detail_date.text = date
         detail_txt.text = detail
     }
-}*/
+}

@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.ProfileItemBinding
+import com.example.soptseminar.presentation.activity.MainActivity
 import com.example.soptseminar.presentation.model.ProfileData
 import kotlinx.android.synthetic.main.profile_item.view.*
 
@@ -45,8 +46,8 @@ class ProfileAdapter(
         holder: ProfileViewHolder,
         position: Int
     ) {
-        val listener = View.OnClickListener {view : View ->
-            view.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+        val listener = View.OnClickListener {
+            // TODO : How to make ClickListener 
         }
         holder.bind(data[position],listener)
     }

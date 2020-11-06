@@ -35,6 +35,7 @@ class MainFragment : Fragment() {
             view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToSignUpFragment())
         }
 
+        // Example Code
         arguments?.let {
             MainFragmentArgs.fromBundle(it).let {
                 binding.mainIdEdt.setText(it.userId)
