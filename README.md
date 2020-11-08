@@ -189,4 +189,4 @@ FloatingButton이 클릭되면 boolean 값에 따라 gridLayoutManager와 Linear
 SimpleCallback을 통해 touchHelper를 구현했습니다.
 액티비티내에서 선언해서 사용함으로 리팩토링이 필요해 따로 클래스를 만들어 사용할 예정입니다.
 ```
-
+Fragment로 리팩토링 과정중 
