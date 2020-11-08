@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.profile_item.view.*
 // Android의 Adapter 패턴은 Adapter가 데이터를 관리하고 리스트 형태의 View에게 데이터를 쏴주는 패턴입니다.
 // 언어를 좀 정확하게 쓸필요가 있어요
 
-// commit : Adapter의 생성자 인자 중 context를 제외시킴
 class ProfileAdapter(
     private val context : Context,
 ) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>(){
@@ -46,8 +45,13 @@ class ProfileAdapter(
         holder: ProfileViewHolder,
         position: Int
     ) {
-        val listener = View.OnClickListener {
-            // TODO : How to make ClickListener 
+        val listener = View.OnClickListener {view : View ->
+            // TODO : How to make ClickListener
+            // Using navigation, make ClickListener!!!
+            // navigate은 할건데, ViewModel을 통해서 onCreate을 하게 된다.
+            // ViewModel Factory 패턴을 사용하면 띄울 때 딱 한번하게 되니까 괜찮지 않을까?
+            // Custom ViewModel Factory!
+
         }
         holder.bind(data[position],listener)
     }

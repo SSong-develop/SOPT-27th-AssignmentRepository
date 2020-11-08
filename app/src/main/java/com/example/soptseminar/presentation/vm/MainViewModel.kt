@@ -6,6 +6,5 @@ import androidx.lifecycle.ViewModel
 import com.example.soptseminar.data.sharedpref.SharedPref
 
 class MainViewModel : ViewModel() {
-
     val sharedPref = SharedPref
 }

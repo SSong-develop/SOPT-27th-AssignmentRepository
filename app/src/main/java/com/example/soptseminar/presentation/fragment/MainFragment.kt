@@ -16,6 +16,7 @@ import com.example.soptseminar.presentation.vm.MainViewModel
 class MainFragment : Fragment() {
 
     private lateinit var viewModel : MainViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,5 +52,6 @@ class MainFragment : Fragment() {
                 password.equals(viewModel.sharedPref.getStringValue(requireContext(),"userPassword"))) return true
         return false
     }
+
 
 }
