@@ -8,4 +8,6 @@ import com.example.soptseminar.data.sharedpref.SharedPref
 
 class SignUpViewModel : ViewModel() {
     val sharedPref = SharedPref
+
+    // TODO : Single Event Function need
 }

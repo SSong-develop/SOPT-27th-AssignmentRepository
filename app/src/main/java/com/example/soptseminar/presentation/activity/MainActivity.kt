@@ -21,13 +21,4 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
     }
-
-    fun detailPage(data: ProfileData){
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("title",data.title)
-        intent.putExtra("subtitle",data.subTitle)
-        intent.putExtra("date","2020-10-23")
-        intent.putExtra("detail","살아있는 누군가입니다.")
-        startActivity(intent)
-    }
 }
