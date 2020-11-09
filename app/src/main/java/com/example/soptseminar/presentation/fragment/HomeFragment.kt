@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,19 +17,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.FragmentHomeBinding
 import com.example.soptseminar.presentation.adapter.ProfileAdapter
+import com.example.soptseminar.presentation.vm.HomeViewModel
 import com.example.soptseminar.utils.MakeDummy
 
 class HomeFragment : Fragment() {
 
     private lateinit var profileAdapter : ProfileAdapter
 
-    private var isChecked : Boolean = false
+    private lateinit var homeViewModel : HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,R.layout.fragment_home,container,false)
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        binding.viewModel = homeViewModel
+
         profileAdapter = ProfileAdapter(ProfileAdapter.ProfileListener{
             userId -> view?.findNavController()?.navigate(R.id.action_homeFragment_to_detailFragment)
         })
@@ -34,9 +41,14 @@ class HomeFragment : Fragment() {
         setDummy(profileAdapter)
         setRecyclerView(binding.homeRecyclerView)
         setTouchHelper(binding.homeRecyclerView)
+        changeLayoutManager(binding.homeRecyclerView)
 
         binding.actBtn.setOnClickListener {
-            changeLayoutManager(binding.homeRecyclerView)
+            if(homeViewModel.isChecked.value == true){
+                homeViewModel.setLinear()
+            }else{
+                homeViewModel.setGrid()
+            }
         }
 
         return binding.root
@@ -55,13 +67,13 @@ class HomeFragment : Fragment() {
 
     fun changeLayoutManager(recyclerView: RecyclerView){
         recyclerView.apply {
-            if(isChecked == false){
-                layoutManager = GridLayoutManager(requireContext().applicationContext,2)
-                isChecked = true
-            } else {
-                layoutManager = LinearLayoutManager(requireContext().applicationContext)
-                isChecked = false
-            }
+            homeViewModel.isChecked.observe(viewLifecycleOwner, Observer {
+                if(it == true){
+                    layoutManager = LinearLayoutManager(requireContext())
+                }else{
+                    layoutManager = GridLayoutManager(requireContext(),2)
+                }
+            })
         }
     }
 

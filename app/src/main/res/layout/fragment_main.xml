@@ -86,10 +86,6 @@
             app:layout_constraintTop_toBottomOf="@+id/main_pass_txt"
             app:layout_constraintEnd_toEndOf="@+id/main_pass_txt"/>
 
-
-        <!-- Click method need -->
-        <!-- Button does not have checkState -->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_btn"
             android:layout_width="0dp"
