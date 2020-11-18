@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
-import com.example.soptseminar.databinding.FragmentHomeBinding
+import com.example.soptseminar.databinding.FragmentUserListBinding
 import com.example.soptseminar.presentation.adapter.ProfileAdapter
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
 import com.example.soptseminar.utils.MakeDummy
 
-class HomeFragment : Fragment() {
+class UserListFragment : Fragment() {
 
     private lateinit var profileAdapter : ProfileAdapter
 
-    private lateinit var binding : FragmentHomeBinding
+    private lateinit var binding : FragmentUserListBinding
 
     private val viewModel : MainViewModel by activityViewModels()
 
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,R.layout.fragment_home,container,false)
+        binding = DataBindingUtil.inflate<FragmentUserListBinding>(inflater,R.layout.fragment_user_list,container,false)
 
         profileAdapter = ProfileAdapter(ProfileAdapter.ProfileListener{
             userId -> findNavController().navigate(R.id.detailFragment)
@@ -48,7 +48,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    // TODO : In ViewModel
     fun setDummy(profileAdapter: ProfileAdapter){
         MakeDummy.makeDummy(profileAdapter)
     }
@@ -60,7 +59,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // TODO : Fix it
     fun changeLayoutManager(){
         if(binding.homeRecyclerView.layoutManager is GridLayoutManager){
             binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())

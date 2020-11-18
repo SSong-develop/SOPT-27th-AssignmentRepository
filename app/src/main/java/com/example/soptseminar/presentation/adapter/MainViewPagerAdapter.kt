@@ -3,7 +3,7 @@ package com.example.soptseminar.presentation.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.soptseminar.presentation.fragment.HomeFragment
+import com.example.soptseminar.presentation.fragment.UserListFragment
 import com.example.soptseminar.presentation.fragment.ProfileFragment
 import com.example.soptseminar.presentation.fragment.SettingFragment
 
@@ -14,7 +14,7 @@ class MainViewPagerAdapter(fm : FragmentManager) :
     override fun getItem(position: Int): Fragment {
         return when(position){
             0 -> ProfileFragment()
-            1 -> HomeFragment()
+            1 -> UserListFragment()
             else -> SettingFragment()
         }
     }
