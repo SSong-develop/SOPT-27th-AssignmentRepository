@@ -35,13 +35,13 @@ class SignInFragment : Fragment() {
 
         if(viewModel.sharedPref.getBooleanValue(requireContext(), "auto") == true){
             Toast.makeText(requireContext(),"자동 로그인",Toast.LENGTH_SHORT).show()
-            navController.navigate(SignInFragmentDirections.actionSignInFragmentToHomeFragment())
+            navController.navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
         }
 
         binding.loginBtn.setOnClickListener {
             if (login(binding.mainIdEdt.text.toString(), binding.mainPassEdt.text.toString())) {
                 accessAutoLogin()
-                navController.navigate(SignInFragmentDirections.actionSignInFragmentToHomeFragment())
+                navController.navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
             } else
                 Toast.makeText(requireContext(), "로그인 실패", Toast.LENGTH_SHORT).show()
         }

@@ -66,4 +66,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$version_navigation"
 
+    // circleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
