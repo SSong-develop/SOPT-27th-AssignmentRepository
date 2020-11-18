@@ -31,19 +31,23 @@ class SignInFragment : Fragment() {
             false
         )
         binding.viewModelMain = viewModel
+        val navController = findNavController()
 
-        binding.loginBtn.setOnClickListener { view: View ->
+        if(viewModel.sharedPref.getBooleanValue(requireContext(), "auto") == true){
+            Toast.makeText(requireContext(),"자동 로그인",Toast.LENGTH_SHORT).show()
+            navController.navigate(SignInFragmentDirections.actionSignInFragmentToHomeFragment())
+        }
+
+        binding.loginBtn.setOnClickListener {
             if (login(binding.mainIdEdt.text.toString(), binding.mainPassEdt.text.toString())) {
-                viewModel.sharedPref.putBooleanValue(requireContext(), "auto", true)
-                view.findNavController()
-                    .navigate(SignInFragmentDirections.actionSignInFragmentToHomeFragment())
+                accessAutoLogin()
+                navController.navigate(SignInFragmentDirections.actionSignInFragmentToHomeFragment())
             } else
                 Toast.makeText(requireContext(), "로그인 실패", Toast.LENGTH_SHORT).show()
         }
 
-        binding.signUpTxt.setOnClickListener { view: View ->
-            view.findNavController()
-                .navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
+        binding.signUpTxt.setOnClickListener {
+            navController.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
         }
 
         return binding.root
@@ -51,6 +55,8 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navController = findNavController()
+
+        // boiler plate
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("userId")?.observe(viewLifecycleOwner){
             viewModel.userId.value = it
         }
@@ -60,11 +66,12 @@ class SignInFragment : Fragment() {
     }
 
     fun login(id: String, password: String): Boolean {
-        if (id == viewModel.sharedPref.getStringValue(requireContext(), "userId") &&
-            password == viewModel.sharedPref.getStringValue(requireContext(), "userPassword")
-        ) return true
-        return false
+        return id == viewModel.sharedPref.getStringValue(requireContext(), "userId") &&
+                password == viewModel.sharedPref.getStringValue(requireContext(), "userPassword")
     }
 
+    fun accessAutoLogin(){
+        viewModel.sharedPref.putBooleanValue(requireContext(), "auto", true)
+    }
 
 }
