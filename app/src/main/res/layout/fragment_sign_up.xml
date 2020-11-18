@@ -3,16 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="signupviewmodel"
-            type="com.example.soptseminar.presentation.vm.SignUpViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.fragment.SignUpFragment">
+        tools:context=".presentation.signup.SignUpFragment">
 
         <TextView
             android:id="@+id/signUp_name_txt"
@@ -105,7 +99,6 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/soptYellow"
-            android:onClick="signUp"
             app:cornerRadius="8dp"
             app:backgroundTint="@color/mainBlack"
             app:layout_constraintTop_toBottomOf="@+id/signUp_pass_edt"

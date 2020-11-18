@@ -8,13 +8,14 @@ buildscript {
         version_lifecycle_extensions = "2.2.0"
         version_material = "1.2.0"
         version_navigation = "2.3.0"
+        daggerVersion = "2.12"
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // safeArgs
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_navigation"

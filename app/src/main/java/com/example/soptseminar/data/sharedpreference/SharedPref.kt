@@ -1,9 +1,12 @@
-package com.example.soptseminar.data.sharedpref
+package com.example.soptseminar.data.sharedpreference
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.example.soptseminar.R
+
+// 이상하단 말이야~
+// 뭔가 좀 깔끔하게 바꾸고 싶다.
 
 object SharedPref {
     private val prefName = R.string.sharedpreference_name.toString()
@@ -34,8 +37,8 @@ object SharedPref {
         editor?.apply()
     }
 
-    fun getStringValue(context : Context , KEY: String): String? {
-        return getInstance(context)?.getString(KEY,null)
+    fun getStringValue(context : Context , KEY: String): String {
+        return getInstance(context)?.getString(KEY,"empty").toString()
     }
 
     fun putStirngValue(context : Context, KEY : String , value : String){

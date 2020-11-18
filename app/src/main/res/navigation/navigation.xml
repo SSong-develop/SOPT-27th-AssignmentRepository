@@ -1,37 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.soptseminar.presentation.fragment.MainFragment"
-        android:label="MainFragment" >
-        <action
-            android:id="@+id/action_mainFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument
-            android:name="userName"
-            app:argType="string" />
-        <argument
-            android:name="userId"
-            app:argType="string" />
-        <argument
-            android:name="userPassword"
-            app:argType="string" />
-    </fragment>
-    <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.soptseminar.presentation.fragment.SignUpFragment"
+        android:name="com.example.soptseminar.presentation.signup.SignUpFragment"
         android:label="SignUpFragment" >
         <action
-            android:id="@+id/action_signUpFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@+id/signInFragment"/>
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -45,4 +24,15 @@
         android:id="@+id/detailFragment"
         android:name="com.example.soptseminar.presentation.fragment.DetailFragment"
         android:label="DetailFragment" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.soptseminar.presentation.signin.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
