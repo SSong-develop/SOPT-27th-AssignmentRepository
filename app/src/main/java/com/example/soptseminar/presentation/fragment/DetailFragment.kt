@@ -27,7 +27,6 @@ class DetailFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Toast.makeText(context,"backpressed",Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
         }

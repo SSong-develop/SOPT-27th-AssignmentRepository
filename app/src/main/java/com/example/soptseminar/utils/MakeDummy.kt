@@ -4,8 +4,6 @@ import com.example.soptseminar.presentation.adapter.ProfileAdapter
 import com.example.soptseminar.presentation.model.ProfileData
 
 class MakeDummy {
-    // dummy Data function
-    // remove it when you are
     companion object{
         fun makeDummy(profileAdapter : ProfileAdapter){
             profileAdapter.data = mutableListOf(

@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.FragmentUserListBinding
+import com.example.soptseminar.presentation.adapter.OnItemClickListener
 import com.example.soptseminar.presentation.adapter.ProfileAdapter
+import com.example.soptseminar.presentation.model.ProfileData
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
 import com.example.soptseminar.utils.MakeDummy
 
-class UserListFragment : Fragment() {
+class UserListFragment : Fragment() ,OnItemClickListener{
 
     private lateinit var profileAdapter : ProfileAdapter
 
@@ -32,11 +34,8 @@ class UserListFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate<FragmentUserListBinding>(inflater,R.layout.fragment_user_list,container,false)
 
-        profileAdapter = ProfileAdapter(ProfileAdapter.ProfileListener{
-            userId -> findNavController().navigate(R.id.detailFragment)
-        })
+        profileAdapter = ProfileAdapter(this)
 
-        // TODO : Get out of onCreateView
         setDummy(profileAdapter)
         setRecyclerView(binding.homeRecyclerView)
         setTouchHelper(binding.homeRecyclerView)
@@ -46,6 +45,10 @@ class UserListFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onItemClicked(profileData: ProfileData) {
+        findNavController().navigate(R.id.detailFragment)
     }
 
     fun setDummy(profileAdapter: ProfileAdapter){
@@ -102,4 +105,5 @@ class UserListFragment : Fragment() {
         })
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
+
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.soptseminar.data.sharedpreference.SharedPref
 import com.example.soptseminar.presentation.model.User
+import com.example.soptseminar.utils.MakeDummy
 
 class MainViewModel : ViewModel() {
     val sharedPref = SharedPref
@@ -16,6 +17,5 @@ class MainViewModel : ViewModel() {
     private val _userPassword = MutableLiveData<String>()
     val userPassword : MutableLiveData<String>
         get() = _userPassword
-
 
 }

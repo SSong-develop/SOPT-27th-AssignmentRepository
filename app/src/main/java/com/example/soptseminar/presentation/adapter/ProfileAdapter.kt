@@ -12,17 +12,19 @@ import com.example.soptseminar.databinding.ProfileItemBinding
 import com.example.soptseminar.presentation.model.ProfileData
 
 class ProfileAdapter(
-    val clickListener : ProfileListener
-) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>(){
+    private val itemClickListener: OnItemClickListener
+): RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>(){
     var data = mutableListOf<ProfileData>()
 
     // TODO : ClickListener 다시 생각
     class ProfileViewHolder(val binding : ProfileItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ProfileData, clickListener: ProfileListener){
+        fun bind(data: ProfileData, clickListener: OnItemClickListener){
             binding.apply {
                 profileData = data
                 executePendingBindings()
-                this.clickListener = clickListener
+            }
+            binding.root.setOnClickListener {
+                clickListener.onItemClicked(data)
             }
         }
     }
@@ -42,14 +44,9 @@ class ProfileAdapter(
         holder: ProfileViewHolder,
         position: Int
     ) {
-        holder.bind(data[position],clickListener)
+        holder.bind(data[position],itemClickListener)
     }
 
-    class ProfileListener(val clickListener : (userId : Long) -> Unit){
-        fun onClick(profile : ProfileData) = clickListener(profile.userId)
-    }
-
-    // TODO : Make this function to Interface
     fun moveItem(from : Int, to : Int) : Boolean{
         val tempData = data.get(from)
         data.removeAt(from)
@@ -64,5 +61,8 @@ class ProfileAdapter(
         notifyItemRemoved(position)
     }
 
+}
 
+interface OnItemClickListener {
+    fun onItemClicked(profileData: ProfileData)
 }
