@@ -36,7 +36,7 @@ class UserListFragment : Fragment() ,OnItemClickListener{
 
         profileAdapter = ProfileAdapter(this)
 
-        setDummy(profileAdapter)
+        setDummy()
         setRecyclerView(binding.homeRecyclerView)
         setTouchHelper(binding.homeRecyclerView)
 
@@ -47,12 +47,12 @@ class UserListFragment : Fragment() ,OnItemClickListener{
         return binding.root
     }
 
-    override fun onItemClicked(profileData: ProfileData) {
-        findNavController().navigate(R.id.detailFragment)
+    private fun setDummy() {
+        profileAdapter.data = viewModel.dummy
     }
 
-    fun setDummy(profileAdapter: ProfileAdapter){
-        MakeDummy.makeDummy(profileAdapter)
+    override fun onItemClicked(profileData: ProfileData) {
+        findNavController().navigate(R.id.detailFragment)
     }
 
     fun setRecyclerView(recyclerView : RecyclerView){

@@ -5,8 +5,8 @@ import com.example.soptseminar.presentation.model.ProfileData
 
 class MakeDummy {
     companion object{
-        fun makeDummy(profileAdapter : ProfileAdapter){
-            profileAdapter.data = mutableListOf(
+        fun makeDummyData() : MutableList<ProfileData>{
+            val data = mutableListOf(
                 ProfileData(1,"송훈기0","010-1234-1234"),
                 ProfileData(2,"송훈기1","010-1234-1235"),
                 ProfileData(3,"송훈기2","010-1234-1236"),
@@ -29,6 +29,7 @@ class MakeDummy {
                 ProfileData(20,"송훈기19","010-1234-1233"),
                 ProfileData(21,"송훈기20","010-1234-1234")
             )
+            return data
         }
     }
 }

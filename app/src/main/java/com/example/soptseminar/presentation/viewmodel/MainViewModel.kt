@@ -1,15 +1,10 @@
 package com.example.soptseminar.presentation.viewmodel
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.soptseminar.data.sharedpreference.SharedPref
-import com.example.soptseminar.presentation.model.User
 import com.example.soptseminar.utils.MakeDummy
 
 class MainViewModel : ViewModel() {
-    val sharedPref = SharedPref
-
     private val _userId = MutableLiveData<String>()
     val userId : MutableLiveData<String>
         get() = _userId
@@ -18,4 +13,7 @@ class MainViewModel : ViewModel() {
     val userPassword : MutableLiveData<String>
         get() = _userPassword
 
+    val dummy = MakeDummy.makeDummyData()
+
+    // SharedPref Injection Pattern
 }
