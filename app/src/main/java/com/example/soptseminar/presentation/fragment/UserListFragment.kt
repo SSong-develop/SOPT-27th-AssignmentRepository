@@ -2,11 +2,11 @@ package com.example.soptseminar.presentation.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,25 +18,27 @@ import com.example.soptseminar.presentation.adapter.OnItemClickListener
 import com.example.soptseminar.presentation.adapter.ProfileAdapter
 import com.example.soptseminar.presentation.model.ProfileData
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
-import com.example.soptseminar.utils.MakeDummy
 
-class UserListFragment : Fragment() ,OnItemClickListener{
+class UserListFragment : Fragment(), OnItemClickListener {
 
-    private lateinit var profileAdapter : ProfileAdapter
+    private lateinit var binding: FragmentUserListBinding
+    private val viewModel: MainViewModel by activityViewModels()
 
-    private lateinit var binding : FragmentUserListBinding
-
-    private val viewModel : MainViewModel by activityViewModels()
+    private lateinit var profileAdapter: ProfileAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentUserListBinding>(inflater,R.layout.fragment_user_list,container,false)
+        binding = DataBindingUtil.inflate<FragmentUserListBinding>(
+            inflater,
+            R.layout.fragment_user_list,
+            container,
+            false
+        )
 
         profileAdapter = ProfileAdapter(this)
 
-        setDummy()
         setRecyclerView(binding.homeRecyclerView)
         setTouchHelper(binding.homeRecyclerView)
 
@@ -47,6 +49,11 @@ class UserListFragment : Fragment() ,OnItemClickListener{
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setDummy()
+    }
+
+
     private fun setDummy() {
         profileAdapter.data = viewModel.dummy
     }
@@ -55,18 +62,18 @@ class UserListFragment : Fragment() ,OnItemClickListener{
         findNavController().navigate(R.id.detailFragment)
     }
 
-    fun setRecyclerView(recyclerView : RecyclerView){
+    private fun setRecyclerView(recyclerView: RecyclerView) {
         recyclerView.apply {
             adapter = profileAdapter
             layoutManager = LinearLayoutManager(requireContext().applicationContext)
         }
     }
 
-    fun changeLayoutManager(){
-        if(binding.homeRecyclerView.layoutManager is GridLayoutManager){
+    private fun changeLayoutManager() {
+        if (binding.homeRecyclerView.layoutManager is GridLayoutManager) {
             binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         } else {
-            binding.homeRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
+            binding.homeRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
 

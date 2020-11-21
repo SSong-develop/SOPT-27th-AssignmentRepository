@@ -4,11 +4,11 @@ object MyKeyStore {
     private const val LoginDataStoreName = "LoginDataStore"
     private const val autoLoginKey = "autoLoginKey"
 
-    fun provideLoginDataStoreName() : String{
+    fun provideLoginDataStoreName(): String {
         return LoginDataStoreName
     }
 
-    fun provideAutoLoginKey() : String{
+    fun provideAutoLoginKey(): String {
         return autoLoginKey
     }
 

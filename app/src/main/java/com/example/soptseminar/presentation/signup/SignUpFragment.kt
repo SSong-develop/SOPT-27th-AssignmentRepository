@@ -1,17 +1,16 @@
 package com.example.soptseminar.presentation.signup
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.soptseminar.R
-import com.example.soptseminar.data.sharedpreference.LoginController
-import com.example.soptseminar.databinding.FragmentSignInBinding
+import com.example.soptseminar.data.local.sharedpreference.LoginController
 import com.example.soptseminar.databinding.FragmentSignUpBinding
 import com.example.soptseminar.presentation.model.User
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
@@ -49,16 +48,17 @@ class SignUpFragment : Fragment() {
         return binding.root
     }
 
-    fun moveSignInPage(id: String, password: String) {
+    private fun moveSignInPage(id: String, password: String) {
         findNavController().previousBackStackEntry?.savedStateHandle?.set("userId", id)
         findNavController().previousBackStackEntry?.savedStateHandle?.set("userPassword", password)
         findNavController().popBackStack()
     }
 
-    fun signUp(user : User){
+    private fun signUp(user: User) {
         if (loginController.isValidate(user))
             loginController.signUp(user)
         else
             Toast.makeText(requireContext(), "회원가입 실패", Toast.LENGTH_SHORT).show()
     }
+
 }

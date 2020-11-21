@@ -1,17 +1,16 @@
 package com.example.soptseminar.presentation.signin
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.soptseminar.R
-import com.example.soptseminar.data.sharedpreference.LoginController
+import com.example.soptseminar.data.local.sharedpreference.LoginController
 import com.example.soptseminar.databinding.FragmentSignInBinding
 import com.example.soptseminar.presentation.model.User
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
@@ -67,14 +66,14 @@ class SignInFragment : Fragment() {
             }
     }
 
-    fun autoLogin(){
+    private fun autoLogin() {
         if (loginController.getAutoLoginKey()) {
             Toast.makeText(requireContext(), "자동 로그인", Toast.LENGTH_SHORT).show()
             findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
         }
     }
 
-    fun login(user : User){
+    private fun login(user: User) {
         if (loginController.signIn(user)) {
             loginController.setAutoLoginKey()
             findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
