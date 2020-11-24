@@ -10,55 +10,56 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.soptseminar.R
-import com.example.soptseminar.data.local.sharedpreference.LoginController
 import com.example.soptseminar.databinding.FragmentSignUpBinding
-import com.example.soptseminar.presentation.model.User
+import com.example.soptseminar.model.User
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
-import com.example.soptseminar.utils.Injection
 
 class SignUpFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var binding: FragmentSignUpBinding
-
-    private lateinit var loginController: LoginController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate<FragmentSignUpBinding>(
+    ): View {
+        val binding = DataBindingUtil.inflate<FragmentSignUpBinding>(
             inflater,
             R.layout.fragment_sign_up,
             container,
             false
         )
-        loginController = LoginController(Injection.provideLoginDataStore(requireContext()))
+        setObserver()
 
         binding.signUpOkBtn.setOnClickListener {
-            val user = User(
-                binding.signUpNameEdtxt.text.toString(),
-                binding.signUpIdEdt.text.toString(),
-                binding.signUpPassEdt.text.toString()
-            )
-            signUp(user)
-            moveSignInPage(user.id, user.password)
-        }
+            if (isValidate(binding)) {
+                viewModel.setUser(
+                    User(
+                        binding.signUpNameEdtxt.text.toString(),
+                        binding.signUpEmailEdt.text.toString(),
+                        binding.signUpPassEdt.text.toString()
+                    )
+                )
+                showToast("회원가입 성공")
+                findNavController().popBackStack()
+            } else
+                showToast("회원가입 실패, 빈칸 없이 작성해주세요")
 
+        }
         return binding.root
     }
 
-    private fun moveSignInPage(id: String, password: String) {
-        findNavController().previousBackStackEntry?.savedStateHandle?.set("userId", id)
-        findNavController().previousBackStackEntry?.savedStateHandle?.set("userPassword", password)
-        findNavController().popBackStack()
+    private fun isValidate(binding: FragmentSignUpBinding): Boolean {
+        return binding.signUpEmailEdt.text.isNotBlank() && binding.signUpNameEdtxt.text.isNotBlank() && binding.signUpPassEdt.text.isNotBlank()
     }
 
-    private fun signUp(user: User) {
-        if (loginController.isValidate(user))
-            loginController.signUp(user)
-        else
-            Toast.makeText(requireContext(), "회원가입 실패", Toast.LENGTH_SHORT).show()
+    private fun setObserver() {
+        viewModel.user.observe(viewLifecycleOwner) {
+            viewModel.signUp()
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
 }

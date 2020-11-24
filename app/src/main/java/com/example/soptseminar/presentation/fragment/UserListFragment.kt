@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.FragmentUserListBinding
+import com.example.soptseminar.model.ProfileData
 import com.example.soptseminar.presentation.adapter.OnItemClickListener
 import com.example.soptseminar.presentation.adapter.ProfileAdapter
-import com.example.soptseminar.presentation.model.ProfileData
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
 
 class UserListFragment : Fragment(), OnItemClickListener {
@@ -29,7 +29,7 @@ class UserListFragment : Fragment(), OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate<FragmentUserListBinding>(
             inflater,
             R.layout.fragment_user_list,

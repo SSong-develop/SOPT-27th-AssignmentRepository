@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.ProfileItemBinding
-import com.example.soptseminar.presentation.model.ProfileData
+import com.example.soptseminar.model.ProfileData
 
 class ProfileAdapter(
     private val itemClickListener: OnItemClickListener

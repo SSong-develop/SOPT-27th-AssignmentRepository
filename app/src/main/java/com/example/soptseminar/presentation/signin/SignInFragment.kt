@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.soptseminar.R
 import com.example.soptseminar.data.local.sharedpreference.LoginController
 import com.example.soptseminar.databinding.FragmentSignInBinding
-import com.example.soptseminar.presentation.model.User
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
 import com.example.soptseminar.utils.Injection
 
@@ -20,31 +19,26 @@ class SignInFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentSignInBinding
-    private lateinit var loginController: LoginController
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate<FragmentSignInBinding>(
+    ): View {
+        val binding = DataBindingUtil.inflate<FragmentSignInBinding>(
             inflater,
             R.layout.fragment_sign_in,
             container,
             false
         )
-        binding.viewModelMain = viewModel
-        loginController = LoginController(Injection.provideLoginDataStore(requireContext()))
-
-        autoLogin()
+        val loginController = LoginController(Injection.provideLoginDataStore(requireContext()))
+        binding.mainviewmodel = viewModel
+        autoLogin(loginController)
 
         binding.loginBtn.setOnClickListener {
-            val user = User(
-                loginController.getUserName(),
-                binding.mainIdEdt.text.toString(),
-                binding.mainPassEdt.text.toString()
-            )
-            login(user)
+            if(isValidate(binding)){
+                viewModel.signIn()
+                loginController.setAutoLoginKey()
+                findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
+            }
         }
 
         binding.signUpTxt.setOnClickListener {
@@ -54,32 +48,15 @@ class SignInFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navController = findNavController()
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("userId")
-            ?.observe(viewLifecycleOwner) {
-                viewModel.userId.value = it
-            }
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("userPassword")
-            ?.observe(viewLifecycleOwner) {
-                viewModel.userPassword.value = it
-            }
-    }
-
-    private fun autoLogin() {
+    private fun autoLogin(loginController: LoginController) {
         if (loginController.getAutoLoginKey()) {
             Toast.makeText(requireContext(), "자동 로그인", Toast.LENGTH_SHORT).show()
             findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
         }
     }
 
-    private fun login(user: User) {
-        if (loginController.signIn(user)) {
-            loginController.setAutoLoginKey()
-            findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
-        } else {
-            Toast.makeText(requireContext(), "로그인 실패", Toast.LENGTH_SHORT).show()
-        }
+    private fun isValidate(binding: FragmentSignInBinding) : Boolean{
+        return binding.mainEmailEdt.text.isNotBlank() && binding.mainPassEdt.text.isNotBlank()
     }
 
 }

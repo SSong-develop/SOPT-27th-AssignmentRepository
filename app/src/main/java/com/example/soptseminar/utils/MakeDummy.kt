@@ -1,6 +1,6 @@
 package com.example.soptseminar.utils
 
-import com.example.soptseminar.presentation.model.ProfileData
+import com.example.soptseminar.model.ProfileData
 
 class MakeDummy {
     companion object {

@@ -2,6 +2,11 @@ package com.example.soptseminar.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.lifecycle.ViewModelProvider
+import com.example.soptseminar.data.remote.api.RetrofitBuilder
+import com.example.soptseminar.data.remote.service.RetrofitService
+import com.example.soptseminar.presentation.factory.MainViewModelFactory
+import com.example.soptseminar.repository.MainRepository
 
 object Injection {
 
@@ -10,6 +15,18 @@ object Injection {
             MyKeyStore.provideLoginDataStoreName(),
             Context.MODE_PRIVATE
         )
+    }
+
+    private fun provideRetrofitService(): RetrofitService {
+        return RetrofitBuilder.retrofitService
+    }
+
+    private fun provideMainRepository(): MainRepository {
+        return MainRepository(provideRetrofitService())
+    }
+
+    fun provideMainViewModelFactory(): ViewModelProvider.Factory {
+        return MainViewModelFactory(provideMainRepository())
     }
 
 }

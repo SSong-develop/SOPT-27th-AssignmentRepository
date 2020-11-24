@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/act_btn"
             android:src="@drawable/floating_btn_image"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             app:backgroundTint="@android:color/holo_green_light"
             app:layout_constraintBottom_toBottomOf="parent"

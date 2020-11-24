@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import com.example.soptseminar.R
 import com.example.soptseminar.databinding.FragmentMainBinding
 import com.example.soptseminar.presentation.adapter.MainViewPagerAdapter
+import com.example.soptseminar.presentation.viewmodel.MainViewModel
 import kotlin.properties.Delegates
 
 class MainFragment : Fragment() {
@@ -17,16 +19,22 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var mainViewPagerAdapter: MainViewPagerAdapter
 
+    private val viewModel : MainViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         mainViewPagerAdapter = MainViewPagerAdapter(parentFragmentManager)
         setViewpager()
         addViewPagerListener()
         setBottomNavigation()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
     }
 
     private fun addViewPagerListener() {
@@ -65,6 +73,5 @@ class MainFragment : Fragment() {
             adapter = mainViewPagerAdapter
         }
     }
-
 
 }

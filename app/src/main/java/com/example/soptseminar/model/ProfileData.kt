@@ -1,4 +1,4 @@
-package com.example.soptseminar.presentation.model
+package com.example.soptseminar.model
 
 import androidx.room.PrimaryKey
 
