@@ -1,6 +1,7 @@
 package com.example.soptseminar.data.remote.service
 
 import com.example.soptseminar.data.remote.model.UserInfo
+import com.example.soptseminar.model.SignInUser
 import com.example.soptseminar.model.User
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -11,7 +12,7 @@ interface RetrofitService {
     @Headers("Content-Type:application/json")
     @POST("users/signin")
     suspend fun postSignIn(
-        @Body  user: User
+        @Body  signInUser: SignInUser
     ) : UserInfo
 
     // 회원가입

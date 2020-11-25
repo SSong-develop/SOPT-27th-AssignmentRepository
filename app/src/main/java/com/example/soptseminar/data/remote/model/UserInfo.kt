@@ -10,5 +10,5 @@ data class UserInfo(
     @SerializedName("message")
     val message : String,
     @SerializedName("data")
-    val userData : UserData
+    var userData : UserData
 )
