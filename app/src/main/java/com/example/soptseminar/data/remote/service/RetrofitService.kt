@@ -1,11 +1,10 @@
 package com.example.soptseminar.data.remote.service
 
+import com.example.soptseminar.data.remote.model.DummyData
 import com.example.soptseminar.data.remote.model.UserInfo
 import com.example.soptseminar.model.SignInUser
 import com.example.soptseminar.model.User
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RetrofitService {
     // 로그인
@@ -21,4 +20,11 @@ interface RetrofitService {
     suspend fun postSignUp(
         @Body user: User
     ) : UserInfo
+
+    // Dummy Data Api
+    @GET("api/users")
+    suspend fun getDummy(
+        @Query("page") pageNum : Int
+    ) : DummyData
+
 }

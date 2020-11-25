@@ -1,7 +1,6 @@
 package com.example.soptseminar.presentation.signin
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,11 +45,13 @@ class SignInFragment : Fragment() {
                         binding.mainPassEdt.text.toString()
                     )
                 )
+            } else {
+                showToast("로그인 실패")
             }
         }
 
         binding.signUpTxt.setOnClickListener {
-            findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
+            moveToSignUp()
         }
 
         return binding.root
@@ -62,8 +63,6 @@ class SignInFragment : Fragment() {
                 loginController.setAutoLogin()
                 loginController.saveUserData(it)
                 findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
-            }else {
-                showToast("로그인에 실패했습니다.")
             }
         }
     }
@@ -82,6 +81,10 @@ class SignInFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun moveToSignUp(){
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
     }
 
 }

@@ -2,7 +2,6 @@ package com.example.soptseminar.data.local.sharedpreference
 
 import android.content.SharedPreferences
 import com.example.soptseminar.data.remote.model.UserData
-import com.example.soptseminar.model.SignInUser
 import com.example.soptseminar.utils.MyKeyStore
 
 class LoginController(

@@ -1,7 +1,6 @@
 package com.example.soptseminar.presentation.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,10 +31,6 @@ class MainFragment : Fragment() {
         addViewPagerListener()
         setBottomNavigation()
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.i("MainFragment",viewModel.userData.value.toString())
     }
 
     private fun addViewPagerListener() {

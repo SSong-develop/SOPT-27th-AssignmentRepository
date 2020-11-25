@@ -36,9 +36,5 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.example.soptseminar.presentation.fragment.UserListFragment"
-        android:label="UserListFragment" >
-        <action
-            android:id="@+id/action_userListFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-    </fragment>
+        android:label="UserListFragment" />
 </navigation>

@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/detail_title"
-            android:text="title"
+            android:text="@{viewModel.userData.userName}"
             android:layout_marginStart="20dp"
             android:textSize="24sp"/>
 
@@ -25,7 +25,7 @@
             android:id="@+id/detail_subtitle"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:text="hello! everyOne"
+            android:text="@{viewModel.userData.email}"
             android:textSize="24sp"/>
         <TextView
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:id="@+id/detail_date"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:text="Date"
+            android:text="@{viewModel.dummyDate}"
             android:textSize="24sp"/>
         <TextView
             android:layout_width="match_parent"
@@ -41,7 +41,16 @@
             android:id="@+id/detail_txt"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:text="Text"
+            android:text="@{viewModel.dummyText}"
             android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="goBack"
+            android:layout_gravity="center"
+            android:layout_marginTop="300dp"/>
+
     </LinearLayout>
 </layout>

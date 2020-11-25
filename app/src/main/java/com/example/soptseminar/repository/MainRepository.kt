@@ -11,4 +11,6 @@ class MainRepository(
     suspend fun signUp(user : User) = retrofitService.postSignUp(user)
 
     suspend fun signIn(signInUser: SignInUser) : UserInfo = retrofitService.postSignIn(signInUser)
+
+    suspend fun fetchDummy(pageNum : Int) = retrofitService.getDummy(pageNum)
 }

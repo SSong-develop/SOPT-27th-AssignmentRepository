@@ -16,28 +16,20 @@ import com.example.soptseminar.presentation.viewmodel.MainViewModel
 
 
 class DetailFragment : Fragment() {
-    private lateinit var callback: OnBackPressedCallback
-
     private lateinit var binding: FragmentDetailBinding
     private val viewModel: MainViewModel by activityViewModels()
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("restore", true)
-                findNavController().popBackStack()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
+        binding.viewModel = viewModel
+
+        binding.backbtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         return binding.root
     }
 

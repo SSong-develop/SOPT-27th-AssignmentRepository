@@ -1,11 +1,9 @@
 package com.example.soptseminar.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.soptseminar.data.remote.model.UserData
-import com.example.soptseminar.data.remote.model.UserInfo
 import com.example.soptseminar.model.SignInUser
 import com.example.soptseminar.model.User
 import com.example.soptseminar.repository.MainRepository
@@ -24,14 +22,16 @@ class MainViewModel(
     val userData : MutableLiveData<UserData>
         get() = _userData
 
+    val dummyDate = "2020.11.25"
+
+    val dummyText = "앱개발자가 되고 싶습니다."
+
     val dummy = MakeDummy.makeDummyData()
 
-    // TODO : Rename Function
     fun setUser(user : User){
         _user.value = user
     }
 
-    // TODO : Rename Function
     fun setUserData(userData: UserData){
         _userData.value = userData
     }

@@ -6,11 +6,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
-    private fun getInstance() : Retrofit{
+    private fun getInstance(BaseUrl : String) : Retrofit{
         return Retrofit.Builder()
-            .baseUrl(MyKeyStore.provideBaseUrl())
+            .baseUrl(BaseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    val retrofitService : RetrofitService = getInstance().create(RetrofitService::class.java)
+    val retrofitService : RetrofitService = getInstance(MyKeyStore.provideSignBaseUrl()).create(RetrofitService::class.java)
+
+    val dummyDataRetrofitService : RetrofitService = getInstance(MyKeyStore.provideDummyDataBaseUrl()).create(RetrofitService::class.java)
 }

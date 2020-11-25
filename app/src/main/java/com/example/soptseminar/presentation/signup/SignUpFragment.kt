@@ -1,7 +1,6 @@
 package com.example.soptseminar.presentation.signup
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,7 @@ class SignUpFragment : Fragment() {
             false
         )
         setObserver()
+
         binding.signUpOkBtn.setOnClickListener {
             if (isValidate(binding)) {
                 viewModel.setUser(

@@ -13,7 +13,6 @@ class ProfileAdapter(
 ) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
     var data = mutableListOf<ProfileData>()
 
-    // TODO : ClickListener 다시 생각
     class ProfileViewHolder(val binding: ProfileItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ProfileData, clickListener: OnItemClickListener) {

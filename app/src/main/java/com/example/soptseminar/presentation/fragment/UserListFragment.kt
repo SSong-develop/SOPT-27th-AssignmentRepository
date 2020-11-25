@@ -2,6 +2,7 @@ package com.example.soptseminar.presentation.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,11 +37,7 @@ class UserListFragment : Fragment(), OnItemClickListener {
             container,
             false
         )
-
         profileAdapter = ProfileAdapter(this)
-
-        setRecyclerView(binding.homeRecyclerView)
-        setTouchHelper(binding.homeRecyclerView)
 
         binding.actBtn.setOnClickListener {
             changeLayoutManager()
@@ -49,17 +46,21 @@ class UserListFragment : Fragment(), OnItemClickListener {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
         setDummy()
-    }
-
-
-    private fun setDummy() {
-        profileAdapter.data = viewModel.dummy
+        setRecyclerView(binding.homeRecyclerView)
+        setTouchHelper(binding.homeRecyclerView)
     }
 
     override fun onItemClicked(profileData: ProfileData) {
         findNavController().navigate(R.id.detailFragment)
+    }
+
+    private fun setDummy() {
+        profileAdapter.data = viewModel.dummy
+        profileAdapter.notifyDataSetChanged()
     }
 
     private fun setRecyclerView(recyclerView: RecyclerView) {
