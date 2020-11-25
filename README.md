@@ -3,7 +3,9 @@
 ## Preview
 
 <div>
-    
+<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/1%EC%B0%A8%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
+<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/2%EC%B0%A8%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
+<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/3%EC%B0%A8%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
 </div>
 
 ## 내용
