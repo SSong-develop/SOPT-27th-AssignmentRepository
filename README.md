@@ -1,314 +1,168 @@
-# SOPT 27th Assignment
+
+
+# HKsAssignment
 
 ## Preview
-
 <div>
-<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/1%EC%B0%A8%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
-<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/2%EC%B0%A8%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
-<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/3%EC%B0%A8%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
-</div>
-## POSTMAM 이미지
-
-<div>
-<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%8F%AC%EC%8A%A4%ED%8A%B8%EB%A7%A8.PNG" width="800" height="800" />
-<img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%8F%AC%EC%8A%A4%ED%8A%B8%EB%A7%A8.PNG" width="800" height="800" />
+<img src="https://github.com/SSong-develop/HKsAssignment/blob/master/1%EC%A3%BC%EC%B0%A8-%EA%B3%BC%EC%A0%9C-%EB%B0%8F-%EC%84%B1%EC%9E%A5%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
+<img src="https://github.com/SSong-develop/HKsAssignment/blob/master/2%EC%A3%BC%EC%B0%A8-%EA%B3%BC%EC%A0%9C-%EB%B0%8F-%EC%84%B1%EC%9E%A5%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
 </div>
 
+##  내용
 
-
-
-## 내용
-
-### 1주차 과제 - 필수
-
-```Kotlin
-class SignUpFragment : Fragment() {
-
-    private val viewModel: MainViewModel by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val binding = DataBindingUtil.inflate<FragmentSignUpBinding>(
-            inflater,
-            R.layout.fragment_sign_up,
-            container,
-            false
-        )
-        setObserver()
-
-        binding.signUpOkBtn.setOnClickListener {
-            if (isValidate(binding)) {
-                viewModel.setUser(
-                    User(
-                        binding.signUpNameEdtxt.text.toString(),
-                        binding.signUpEmailEdt.text.toString(),
-                        binding.signUpPassEdt.text.toString()
-                    )
-                )
-                showToast("회원가입 성공")
-                findNavController().popBackStack()
-            } else
-                showToast("회원가입 실패, 빈칸 없이 작성해주세요")
-        }
-        return binding.root
-    }
-
-    private fun isValidate(binding: FragmentSignUpBinding): Boolean {
-        return binding.signUpEmailEdt.text.isNotBlank() && binding.signUpNameEdtxt.text.isNotBlank() && binding.signUpPassEdt.text.isNotBlank()
-    }
-
-    private fun setObserver() {
-        viewModel.user.observe(viewLifecycleOwner) {
-            viewModel.signUp()
-        }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-}
-
-
-Activity를 하나만 사용하고 fragment를 사용해 보다 앱을 가볍게 사용할 수 있도록 설계했습니다. 또한 6주차 과제였던 Retrofit을 이용해 서버와의 통신을 할 수 있도록 설계하였습니다. 
-```
-
-### 1주차 과제 - 성장과제 1
-
-``` kotlin
-class SignInFragment : Fragment() {
-
-    private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var binding: FragmentSignInBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate<FragmentSignInBinding>(
-            inflater,
-            R.layout.fragment_sign_in,
-            container,
-            false
-        )
-        val loginController = LoginController(Injection.provideLoginDataStore(requireContext()))
-        binding.mainviewmodel = viewModel
-
-        autoLogin(loginController)
-        setObserver(loginController)
-
-        binding.loginBtn.setOnClickListener {
-            if (isValidate(binding)) {
-                viewModel.signIn(
-                    SignInUser(
-                        binding.mainEmailEdt.text.toString(),
-                        binding.mainPassEdt.text.toString()
-                    )
-                )
-            } else {
-                showToast("로그인 실패")
-            }
-        }
-
-        binding.signUpTxt.setOnClickListener {
-            moveToSignUp()
-        }
-
-        return binding.root
-    }
-
-    private fun setObserver(loginController: LoginController) {
-        viewModel.userData.observe(viewLifecycleOwner){
-            if(it.email.isNotBlank() && it.password.isNotBlank() && it.userName.isNotBlank()) {
-                loginController.setAutoLogin()
-                loginController.saveUserData(it)
-                findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
-            }
-        }
-    }
-
-    private fun autoLogin(loginController: LoginController) {
-        if (loginController.getAutoLogin()) {
-            showToast("자동로그인")
-            viewModel.setUserData(loginController.fetchUserData())
-            findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
-        }
-    }
-
-    private fun isValidate(binding: FragmentSignInBinding): Boolean {
-        return binding.mainEmailEdt.text.isNotBlank() && binding.mainPassEdt.text.isNotBlank()
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun moveToSignUp(){
-        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
-    }
-
-}
-Databinding을 통해 ViewModel의 user데이터를 editText의 Text로 들어갈 수 있도록 하였습니다.
-```
-
-### 1주차 과제 - 성장과제1
-
-``` kotlin
-<SignInFragment.kt>
-
-private fun setObserver(loginController: LoginController) {
-        viewModel.userData.observe(viewLifecycleOwner){
-            if(it.email.isNotBlank() && it.password.isNotBlank() && it.userName.isNotBlank()) {
-                loginController.setAutoLogin()
-                loginController.saveUserData(it)
-                findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
-            }
-        }
-    }
-
-    private fun autoLogin(loginController: LoginController) {
-        if (loginController.getAutoLogin()) {
-            showToast("자동로그인")
-            viewModel.setUserData(loginController.fetchUserData())
-            findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment())
-        }
-    }
-자동로그인은 기존에 로그인 버튼을 누를 경우, 서버와 통신해 로그인을 수행하고, response 값으로 받은 데이터를 SharedPreference에 저장합니다.
-<LoginController.kt>
-
-class LoginController(
-    private val LoginDataStore: SharedPreferences
-) : OnControlled {
-    private val KEY = MyKeyStore.provideAutoLoginKey()
-
-    override fun setAutoLogin() {
-        LoginDataStore.edit().putBoolean(KEY, true).apply()
-    }
-
-    override fun saveUserData(userData: UserData) {
-        LoginDataStore.edit()
-            .putString("userName",userData.userName)
-            .putString("userEmail",userData.email)
-            .putString("userPassword",userData.password)
-            .apply()
-    }
-
-    override fun fetchUserData(): UserData {
-        return UserData(
-            LoginDataStore.getString("userEmail",null).toString(),
-            LoginDataStore.getString("userPassword",null).toString(),
-            LoginDataStore.getString("userName",null).toString()
-        )
-    }
-
-    override fun getAutoLogin(): Boolean {
-        return LoginDataStore.getBoolean(KEY, false)
-    }
-
-}
-이를 통해 autoLogin이 true로 설정되어있을 때 SharedPreference에 있는 user 데이터를 가져와 자동로그인이 수행됩니다.
-```
-
-### 2주차 과제 - 필수
+### 1차 과제 - 필수    
+#### 완료날짜(20.11.02)
 
 ```kotlin
-class ProfileAdapter(
-    private val itemClickListener: OnItemClickListener
-) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
-    var data = mutableListOf<ProfileData>()
-    
-    class ProfileViewHolder(val binding: ProfileItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ProfileData, clickListener: OnItemClickListener) {
-            binding.apply {
-                profileData = data
-                executePendingBindings()
-            }
-            binding.root.setOnClickListener {
-                clickListener.onItemClicked(data)
-            }
+<SignUpActivity.kt>
+fun sendIntent(){
+        val newIntent = Intent()
+        newIntent.putExtra("name",binding.signUpNameEdtxt.text.toString())
+        newIntent.putExtra("id",binding.signUpIdEdt.text.toString())
+        newIntent.putExtra("password",binding.signUpPassEdt.text.toString())
+        Toast.makeText(this,"회원가입 성공",Toast.LENGTH_SHORT).show()
+        setResult(RESULT_OK,newIntent)
+        finish()
+    }
+
+fun goMain(view : View){
+        if(viewModel.isValidate(binding.signUpNameEdtxt.text.toString(),
+                binding.signUpIdEdt.text.toString(),
+                binding.signUpPassEdt.text.toString())){
+            regist()
+            sendIntent()
+        }
+        else {
+            Toast.makeText(this,"공백없이 전부 적어주세요",Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ProfileViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: ProfileItemBinding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.profile_item, parent, false)
-        return ProfileViewHolder(binding)
+SignUpActivity에서 회원가입을 하게 되면 Toast메시지와 함께 intent를 통해 name , id , password를 보내도록 하여 그 다음 로그인 화면에 회원가입 했던 값이 보여지도록 했습니다. 
+또한 sendIntent 함수를 호출하는 조건으으로 모든 editText부분에 기입이 완료 되었는지를 확인할 수 있도록 했습니다.
+기본적으로 Main과 SignUp 에는 ViewModel을 적용해 기타 데이터들을 보관할 수 있도록 구현했습니다.
+```
+
+### 1차 과제 - 성장과제1    
+#### 완료날짜(20.11.02)
+
+``` <SignUpActivity.kt>
+fun regist(){
+        autoLogin.edit().putString("name",binding.signUpNameEdtxt.text.toString()).commit()
+        autoLogin.edit().putString("id",binding.signUpIdEdt.text.toString()).commit()
+        autoLogin.edit().putString("password",binding.signUpPassEdt.text.toString()).commit()
     }
 
-    override fun getItemCount(): Int = data.size
+SharedPreference에 값을 넣어 회원가입을 하고 이를 다른 액티비티에서도 꺼내어 확인 할 수 있도록 했습니다.
+이 또한 goMain() 함수에서 validate 과정을 거친 후 수행하도록 하였습니다.
+추후, Room으로 리팩토링하여 활용하기 쉽도록 구현할 예정입니다.
+```
 
-    override fun onBindViewHolder(
+### 1차 과제 - 성장과제2   
+#### 완료날짜(20.11.02)
+
+``` <MainActivity.kt>
+// 자동로그인 함수
+private fun auto(sharedPreferences: SharedPreferences) {
+        if(sharedPreferences.getBoolean("autoKey",false) == true){
+            Toast.makeText(this,"자동로그인",Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+    }
+
+// 일단은 자동로그인 함수
+    fun init() {
+        autoLogin = getSharedPreferences("autoLogin1", MODE_PRIVATE)
+        auto(autoLogin)
+    }
+
+override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java) // change ktx
+        binding.mainviewmodel = viewModel
+        binding.activity = this
+
+        init()
+    }
+
+기존에 회원가입을 한 후에 다시 앱을 실행했을 떄 먼저 init() 함수를 실행 해 값이 있는 지 없는지를 확인한 후 있는 경우 자동로그인 할 수 있도록 구현했습니다.
+```
+
+### 2차 과제 - 필수   
+#### 완료날짜(20.11.02)
+
+``` <ProfileAdapter.kt>
+class ProfileViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(data : ProfileData, listener : View.OnClickListener){
+            itemView.title_txt.text = data.title
+            itemView.subtitle_txt.text = data.subTitle
+            itemView.setOnClickListener(listener)
+        }
+    }
+
+override fun onBindViewHolder(
         holder: ProfileViewHolder,
         position: Int
     ) {
-        holder.bind(data[position], itemClickListener)
-    }
-
-    fun moveItem(from: Int, to: Int): Boolean {
-        val tempData = data.get(from)
-        data.removeAt(from)
-        data.add(to, tempData)
-        notifyItemMoved(from, to)
-        notifyItemChanged(from, to)
-        return true
-    }
-
-    fun removeItem(position: Int) {
-        data.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-}
-
-interface OnItemClickListener {
-    fun onItemClicked(profileData: ProfileData)
-}
-DataBinding을 이용해 recyclerview Adapter를 구현했습니다. 상세화면으로 가는 이벤트는 interface를 선언해 리사이클러뷰가 보여지는 UserListFragment.kt에서 구현하도록 하였습니다.
-
-<UserListFragment.kt>
-
-    override fun onItemClicked(profileData: ProfileData) {
-        findNavController().navigate(R.id.detailFragment)
-    }
-```
-
-### 2주차 과제 - 성장 과제2
-
-```kotlin
-<UserListFragment.kt> 
-private fun changeLayoutManager() {
-        if (binding.homeRecyclerView.layoutManager is GridLayoutManager) {
-            binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        } else {
-            binding.homeRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        val listener = View.OnClickListener {
+            val activity = context as HomeActivity
+            activity.detailPage(data[position])
         }
+        holder.bind(data[position],listener)
     }
 
-버튼을 누르면 recyclerview의 layoutManager를 변경할 수 있도록 하였습니다.
+기존 ViewHolder 클래스에 clickListener bind함수의 매개변수로 추가해 itemClick을 구현했습니다.
+클릭을 구현하는 여러가지의 방법이 있는데 저의 경우 clickListener 또한 ViewHolder에서 bind시 같이 되어야 할 것 같다는 생각에 listener를 추가해야한다는 생각으로 구현했습니다.
+
+<Detail Activity.kt>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
+        val intent = intent
+        title = intent.getStringExtra("title").toString()
+        subTitle = intent.getStringExtra("subtitle").toString()
+        date = intent.getStringExtra("date").toString()
+        detail = intent.getStringExtra("detail").toString()
+
+        detail_title.text = title
+        detail_subtitle.text = subTitle
+        detail_date.text = date
+        detail_txt.text = detail
+    }
+디테일 액티비티에서는 이름을 제외한 데이터는 간략한 더미데이터를 통해 상세화면을 보여주도록 했습니다.
 ```
 
-### 2주차 과제 - 성장 과제2
+### 2차 과제 - 성장과제1   
+#### 완료날짜(20.11.02)
 
-```kotlin
-    private fun setTouchHelper(recyclerView: RecyclerView) {
-        val itemTouchHelper = androidx.recyclerview.widget.ItemTouchHelper(object :
-            androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback(
-                androidx.recyclerview.widget.ItemTouchHelper.UP or androidx.recyclerview.widget.ItemTouchHelper.DOWN,
-                androidx.recyclerview.widget.ItemTouchHelper.START or androidx.recyclerview.widget.ItemTouchHelper.END
-            ) {
+``` <HomeActivity.kt>
+act_btn.setOnClickListener {
+            homeRecyclerView.apply {
+                if(isChecked == false){
+                    layoutManager = GridLayoutManager(this@HomeActivity,2)
+                    isChecked = true
+                } else {
+                    layoutManager = LinearLayoutManager(this@HomeActivity)
+                    isChecked = false
+                }
+            }
+        }
+FloatingButton이 클릭되면 boolean 값에 따라 gridLayoutManager와 LinearLayoutManager를 적용해줌으로써 layoutManager를 변경할 수 있도록 구현했습니다.
+```
+
+### 2차 과제 - 성장과제2   
+#### 완료날짜(20.11.02)
+
+```<HomeActivity.kt>
+// TouchHelper
+        val itemTouchHelper = ItemTouchHelper(object :ItemTouchHelper.SimpleCallback(UP or DOWN , START or END){
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                return profileAdapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
+                return profileAdapter.moveItem(viewHolder.adapterPosition,target.adapterPosition)
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -317,7 +171,7 @@ private fun changeLayoutManager() {
 
             override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
                 super.onSelectedChanged(viewHolder, actionState)
-                if (actionState == androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG) {
+                if(actionState == ACTION_STATE_DRAG){
                     viewHolder?.itemView?.setBackgroundColor(Color.LTGRAY)
                 }
             }
@@ -330,135 +184,9 @@ private fun changeLayoutManager() {
                 viewHolder.itemView.setBackgroundColor(Color.WHITE)
             }
         })
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-    }
+        itemTouchHelper.attachToRecyclerView(homeRecyclerView)
 
-ItemTouchHelper를 구현해 이를 리사이클러뷰에 적용할 수 있도록 했습니다.
+SimpleCallback을 통해 touchHelper를 구현했습니다.
+액티비티내에서 선언해서 사용함으로 리팩토링이 필요해 따로 클래스를 만들어 사용할 예정입니다.
 ```
 
-### 3주차 과제 - 필수 과제
-
-```kotlin
-class MainFragment : Fragment() {
-
-    private lateinit var binding: FragmentMainBinding
-    private lateinit var mainViewPagerAdapter: MainViewPagerAdapter
-
-    private val viewModel : MainViewModel by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-        mainViewPagerAdapter = MainViewPagerAdapter(parentFragmentManager)
-        setViewpager()
-        addViewPagerListener()
-        setBottomNavigation()
-        return binding.root
-    }
-
-    private fun addViewPagerListener() {
-        binding.viewpagerMain.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                binding.bottomNavigationMain.menu.getItem(position).isChecked = true
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {}
-
-        })
-    }
-
-    private fun setBottomNavigation() {
-        binding.bottomNavigationMain.setOnNavigationItemSelectedListener {
-            var index by Delegates.notNull<Int>()
-            when (it.itemId) {
-                R.id.menu_home -> index = 0
-                R.id.menu_User -> index = 1
-                R.id.menu_setting -> index = 2
-            }
-            binding.viewpagerMain.currentItem = index
-            true
-        }
-    }
-
-    private fun setViewpager() {
-        binding.viewpagerMain.apply {
-            adapter = mainViewPagerAdapter
-        }
-    }
-    
-세미나에서 배웠던 코드를 참고해 구현하였습니다. 
-```
-
-### 6주차 과제 - 필수 과제
-
-```kotlin
-<RetrofitBuilder>
-private fun getInstance(BaseUrl : String) : Retrofit{
-        return Retrofit.Builder()
-            .baseUrl(BaseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-    val retrofitService : RetrofitService = getInstance(MyKeyStore.provideSignBaseUrl()).create(RetrofitService::class.java)
-
-<RetrofitService>
-    // 로그인
-    @Headers("Content-Type:application/json")
-    @POST("users/signin")
-    suspend fun postSignIn(
-        @Body  signInUser: SignInUser
-    ) : UserInfo
-
-    // 회원가입
-    @Headers("Content-Type:application/json")
-    @POST("users/signup")
-    suspend fun postSignUp(
-        @Body user: User
-    ) : UserInfo
-
-<MainRepository.kt>
-    suspend fun signUp(user : User) = retrofitService.postSignUp(user)
-
-    suspend fun signIn(signInUser: SignInUser) : UserInfo = retrofitService.postSignIn(signInUser)
-
-<MainViewModel.kt>
-fun signIn(signInUser: SignInUser) = viewModelScope.launch{
-        try{
-            _userData.value = repository.signIn(signInUser).userData
-        } catch (e : Exception){
-            e.printStackTrace()
-        }
-    }
-
-    fun signUp() = viewModelScope.launch{
-        _user.value?.let {
-            try{
-                repository.signUp(it)
-            } catch (e : NullPointerException){
-                e.printStackTrace()
-            } catch (e : Exception){
-                e.printStackTrace()
-            }
-        }
-    }
-
-Retrofit을 이용해 서버와의 통신을 수행할 수 있도록 하였습니다.
-ViewModel과 Repository패턴을 이용하였습니다.
-
-```
-<<<<<<< HEAD
-
-
-
-=======
-Fragment로 리팩토링 과정중 
->>>>>>> fa056a1c576cafd0e319d62e209720114637ce99
