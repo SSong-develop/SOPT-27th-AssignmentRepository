@@ -6,15 +6,15 @@
     <data>
         <variable
             name="mainviewmodel"
-            type="com.example.soptseminar.viewmodel.MainViewModel" />
+            type="com.example.soptseminar.presentation.vm.MainViewModel" />
         <variable
             name="activity"
-            type="com.example.soptseminar.ui.MainActivity" />
+            type="com.example.soptseminar.presentation.activity.MainActivity" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        tools:context=".presentation.activity.MainActivity">
 
         <TextView
             android:id="@+id/main_logo_txt"
