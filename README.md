@@ -455,10 +455,3 @@ Retrofit을 이용해 서버와의 통신을 수행할 수 있도록 하였습�
 ViewModel과 Repository패턴을 이용하였습니다.
 
 ```
-<<<<<<< HEAD
-
-
-
-=======
-Fragment로 리팩토링 과정중 
->>>>>>> fa056a1c576cafd0e319d62e209720114637ce99
