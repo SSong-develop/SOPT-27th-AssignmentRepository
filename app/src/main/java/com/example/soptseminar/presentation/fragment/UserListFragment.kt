@@ -26,6 +26,7 @@ class UserListFragment : Fragment(), OnItemClickListener {
 
     private lateinit var profileAdapter: ProfileAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

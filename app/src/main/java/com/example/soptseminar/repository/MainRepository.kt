@@ -6,11 +6,12 @@ import com.example.soptseminar.model.SignInUser
 import com.example.soptseminar.model.User
 
 class MainRepository(
-    private val retrofitService: RetrofitService
+    private val retrofitService: RetrofitService,
+    private val dummyDataRetrofitService: RetrofitService
 ) {
     suspend fun signUp(user : User) = retrofitService.postSignUp(user)
 
     suspend fun signIn(signInUser: SignInUser) : UserInfo = retrofitService.postSignIn(signInUser)
 
-    suspend fun fetchDummy(pageNum : Int) = retrofitService.getDummy(pageNum)
+    suspend fun fetchDummy() = dummyDataRetrofitService.getDummy(2)
 }

@@ -21,8 +21,12 @@ object Injection {
         return RetrofitBuilder.retrofitService
     }
 
+    private fun provideDummyRetrofitService() : RetrofitService{
+        return RetrofitBuilder.dummyDataRetrofitService
+    }
+
     private fun provideMainRepository(): MainRepository {
-        return MainRepository(provideRetrofitService())
+        return MainRepository(provideRetrofitService(), provideDummyRetrofitService())
     }
 
     fun provideMainViewModelFactory(): ViewModelProvider.Factory {

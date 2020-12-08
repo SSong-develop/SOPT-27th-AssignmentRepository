@@ -13,7 +13,7 @@ class ProfileAdapter(
 ) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
     var data = mutableListOf<ProfileData>()
 
-    class ProfileViewHolder(val binding: ProfileItemBinding) :
+    class ProfileViewHolder(private val binding: ProfileItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ProfileData, clickListener: OnItemClickListener) {
             binding.apply {
