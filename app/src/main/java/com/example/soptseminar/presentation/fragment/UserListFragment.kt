@@ -8,24 +8,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soptseminar.R
+import com.example.soptseminar.data.remote.model.DummyUser
 import com.example.soptseminar.databinding.FragmentUserListBinding
-import com.example.soptseminar.model.ProfileData
-import com.example.soptseminar.presentation.adapter.OnItemClickListener
-import com.example.soptseminar.presentation.adapter.ProfileAdapter
+import com.example.soptseminar.presentation.adapter.DummyProfileAdapter
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
 
-class UserListFragment : Fragment(), OnItemClickListener {
+class UserListFragment : Fragment(){
 
     private lateinit var binding: FragmentUserListBinding
     private val viewModel: MainViewModel by activityViewModels()
-
-    private lateinit var profileAdapter: ProfileAdapter
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +33,11 @@ class UserListFragment : Fragment(), OnItemClickListener {
             container,
             false
         )
-        profileAdapter = ProfileAdapter(this)
+        val dummyProfileAdapter = DummyProfileAdapter()
+        setObserver(dummyProfileAdapter)
+        viewModel.remoteDummy()
+        setRecyclerView(dummyProfileAdapter)
+        setTouchHelper(dummyProfileAdapter)
 
         binding.actBtn.setOnClickListener {
             changeLayoutManager()
@@ -46,27 +46,18 @@ class UserListFragment : Fragment(), OnItemClickListener {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        setDummy()
-        setRecyclerView(binding.homeRecyclerView)
-        setTouchHelper(binding.homeRecyclerView)
+    private fun setObserver(dummyProfileAdapter: DummyProfileAdapter) {
+        viewModel.dummyData.observe(viewLifecycleOwner){
+            dummyProfileAdapter.dummyData = it.dummyUser as MutableList<DummyUser>
+            dummyProfileAdapter.notifyDataSetChanged()
+        }
     }
 
-    override fun onItemClicked(profileData: ProfileData) {
-        findNavController().navigate(R.id.detailFragment)
-    }
-
-    private fun setDummy() {
-        profileAdapter.data = viewModel.dummy
-        profileAdapter.notifyDataSetChanged()
-    }
-
-    private fun setRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.apply {
-            adapter = profileAdapter
-            layoutManager = LinearLayoutManager(requireContext().applicationContext)
+    private fun setRecyclerView(dummyProfileAdapter: DummyProfileAdapter) {
+        binding.homeRecyclerView.apply {
+            adapter = dummyProfileAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(DividerItemDecoration(requireContext(),LinearLayoutManager.VERTICAL))
         }
     }
 
@@ -78,7 +69,7 @@ class UserListFragment : Fragment(), OnItemClickListener {
         }
     }
 
-    private fun setTouchHelper(recyclerView: RecyclerView) {
+    private fun setTouchHelper(dummyProfileAdapter: DummyProfileAdapter) {
         val itemTouchHelper = androidx.recyclerview.widget.ItemTouchHelper(object :
             androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback(
                 androidx.recyclerview.widget.ItemTouchHelper.UP or androidx.recyclerview.widget.ItemTouchHelper.DOWN,
@@ -89,11 +80,11 @@ class UserListFragment : Fragment(), OnItemClickListener {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                return profileAdapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
+                return dummyProfileAdapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                profileAdapter.removeItem(viewHolder.adapterPosition)
+                dummyProfileAdapter.removeItem(viewHolder.adapterPosition)
             }
 
             override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
@@ -111,7 +102,7 @@ class UserListFragment : Fragment(), OnItemClickListener {
                 viewHolder.itemView.setBackgroundColor(Color.WHITE)
             }
         })
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+        itemTouchHelper.attachToRecyclerView(binding.homeRecyclerView)
     }
 
 }

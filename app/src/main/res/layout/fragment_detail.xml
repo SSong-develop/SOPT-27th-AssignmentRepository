@@ -33,7 +33,6 @@
             android:id="@+id/detail_date"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:text="@{viewModel.dummyDate}"
             android:textSize="24sp"/>
         <TextView
             android:layout_width="match_parent"
@@ -41,7 +40,6 @@
             android:id="@+id/detail_txt"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:text="@{viewModel.dummyText}"
             android:textSize="24sp"/>
 
         <Button

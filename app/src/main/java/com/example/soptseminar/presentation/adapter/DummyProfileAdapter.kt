@@ -33,4 +33,18 @@ class DummyProfileAdapter : RecyclerView.Adapter<DummyProfileAdapter.DummyViewHo
     }
 
     override fun getItemCount(): Int = dummyData.size
+
+    fun moveItem(from: Int, to: Int): Boolean {
+        val tempData = dummyData.get(from)
+        dummyData.removeAt(from)
+        dummyData.add(to, tempData)
+        notifyItemMoved(from, to)
+        notifyItemChanged(from, to)
+        return true
+    }
+
+    fun removeItem(position: Int) {
+        dummyData.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }

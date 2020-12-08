@@ -10,9 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.soptseminar.R
-import com.example.soptseminar.data.remote.model.DummyUser
+import com.example.soptseminar.data.remote.model.KakaoSearchDocument
 import com.example.soptseminar.databinding.FragmentSettingBinding
-import com.example.soptseminar.presentation.adapter.DummyProfileAdapter
+import com.example.soptseminar.presentation.adapter.KakaoSearchAdapter
 import com.example.soptseminar.presentation.viewmodel.MainViewModel
 
 class SettingFragment : Fragment() {
@@ -25,26 +25,45 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false)
-        val dummyProfileAdapter = DummyProfileAdapter()
-        setObserver(dummyProfileAdapter)
-        viewModel.remoteDummy()
-        setAdapter(dummyProfileAdapter)
+        val kakaoSearchAdapter = KakaoSearchAdapter()
+        setObserver()
+        setSearchView()
+        setAdapter(kakaoSearchAdapter)
+
         return binding.root
     }
 
-    private fun setObserver(dummyProfileAdapter: DummyProfileAdapter) {
-        viewModel.dummyData.observe(viewLifecycleOwner){
-            dummyProfileAdapter.dummyData = it.dummyUser as MutableList<DummyUser>
-            dummyProfileAdapter.notifyDataSetChanged()
+    private fun setSearchView(){
+        binding.settingSearchview.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                viewModel.setKeyword(p0!!)
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+
+        })
+    }
+
+    private fun setObserver(){
+        viewModel.keyword.observe(viewLifecycleOwner){
+            viewModel.search()
         }
     }
 
-    private fun setAdapter(dummyProfileAdapter: DummyProfileAdapter){
+    private fun setAdapter(kakaoSearchAdapter: KakaoSearchAdapter){
+        viewModel.searchData.observe(viewLifecycleOwner){
+            kakaoSearchAdapter.searchData = it.document as MutableList<KakaoSearchDocument>
+            kakaoSearchAdapter.notifyDataSetChanged()
+        }
         binding.settingRecyclerview.apply {
-            adapter = dummyProfileAdapter
+            adapter = kakaoSearchAdapter
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(DividerItemDecoration(requireContext(),LinearLayoutManager.VERTICAL))
         }
     }
+
 
 }

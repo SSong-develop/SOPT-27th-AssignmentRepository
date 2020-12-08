@@ -21,12 +21,19 @@ object Injection {
         return RetrofitBuilder.retrofitService
     }
 
-    private fun provideDummyRetrofitService() : RetrofitService{
+    private fun provideDummyRetrofitService(): RetrofitService {
         return RetrofitBuilder.dummyDataRetrofitService
     }
 
+    private fun provideKakaoRetrofitService(): RetrofitService {
+        return RetrofitBuilder.kakaoSearchRetrofitService
+    }
+
     private fun provideMainRepository(): MainRepository {
-        return MainRepository(provideRetrofitService(), provideDummyRetrofitService())
+        return MainRepository(
+            provideRetrofitService(), provideDummyRetrofitService(),
+            provideKakaoRetrofitService()
+        )
     }
 
     fun provideMainViewModelFactory(): ViewModelProvider.Factory {

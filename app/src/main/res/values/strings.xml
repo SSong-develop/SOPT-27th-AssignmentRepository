@@ -12,4 +12,5 @@
     <string name="signUp_btn_text">JOIN</string>
     <string name="signIn_btn_text">LOGIN</string>
     <string name="go_to_signUp_text">회원가입 하러가기</string>
+    <string name="kakao_app_key">afb2d846f7709e6be8170a6a20d01a88</string>
 </resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="KakaoSearchData"
+            type="com.example.soptseminar.data.remote.model.KakaoSearchDocument" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/setting_search_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="@{KakaoSearchData.title}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/setting_search_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@{KakaoSearchData.contents}"
+                app:layout_constraintStart_toStartOf="@id/setting_search_title"
+                app:layout_constraintTop_toBottomOf="@id/setting_search_title"/>
+
+            <TextView
+                android:id="@+id/setting_search_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@{KakaoSearchData.url}"
+                app:layout_constraintTop_toBottomOf="@id/setting_search_content"
+                app:layout_constraintStart_toStartOf="@id/setting_search_title"/>
+
+            <TextView
+                android:id="@+id/setting_search_datetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@{KakaoSearchData.datetime}"
+                app:layout_constraintStart_toStartOf="@id/setting_search_title"
+                app:layout_constraintTop_toBottomOf="@id/setting_search_url"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

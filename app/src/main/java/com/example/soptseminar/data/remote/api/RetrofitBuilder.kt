@@ -15,4 +15,6 @@ object RetrofitBuilder {
     val retrofitService : RetrofitService = getInstance(MyKeyStore.provideSignBaseUrl()).create(RetrofitService::class.java)
 
     val dummyDataRetrofitService : RetrofitService = getInstance(MyKeyStore.provideDummyDataBaseUrl()).create(RetrofitService::class.java)
+
+    val kakaoSearchRetrofitService : RetrofitService = getInstance(MyKeyStore.provideKakaoBaseUrl()).create(RetrofitService::class.java)
 }
