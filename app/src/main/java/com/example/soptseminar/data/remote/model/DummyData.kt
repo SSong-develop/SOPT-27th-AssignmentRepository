@@ -2,7 +2,6 @@ package com.example.soptseminar.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-// TODO : Data class 형식 틀림 고쳐야함
 data class DummyData(
     @SerializedName("page")
     val page : Int,
