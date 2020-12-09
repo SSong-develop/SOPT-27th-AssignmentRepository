@@ -5,9 +5,11 @@ import com.example.soptseminar.data.remote.model.KakaoSearchData
 import com.example.soptseminar.data.remote.model.UserInfo
 import com.example.soptseminar.model.SignInUser
 import com.example.soptseminar.model.User
+import com.example.soptseminar.utils.MyKeyStore
 import retrofit2.http.*
 
 interface RetrofitService {
+
     // 로그인
     @Headers("Content-Type:application/json")
     @POST("users/signin")
