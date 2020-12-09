@@ -8,6 +8,7 @@
 <img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/hunki_1/3%EC%B0%A8%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
 <img src="https://github.com/SSong-develop/SOPT-27th-AssignmentRepository/blob/master/6%EC%B0%A8-%EC%84%B1%EC%9E%A5%EA%B3%BC%EC%A0%9C.gif" width="300" height="650" />
 </div>
+
 ## POSTMAM 이미지
 
 <div>
@@ -456,3 +457,50 @@ Retrofit을 이용해 서버와의 통신을 수행할 수 있도록 하였습�
 ViewModel과 Repository패턴을 이용하였습니다.
 
 ```
+### 6주차 과제 - 성장 과제 1,2
+
+```kotlin
+<RetrofitService.kt>
+    @GET("api/users")
+    suspend fun getDummy(
+        @Query("page") pageNum : Int
+    ) : DummyData
+
+    // kakao web search api
+    @Headers("Authorization: KakaoAK {REST API_KEY}")
+    @GET("/v2/search/web")
+    suspend fun webSearch(
+        @Query("query") web : String,
+        @Query("page") pageNum: Int
+    ) : KakaoSearchData
+
+
+<MainRepository.kt>
+    suspend fun fetchDummy() = dummyDataRetrofitService.getDummy(2)
+
+    suspend fun searchKeyword(keyword : String) : KakaoSearchData = kakaoSearchRetrofitService.webSearch(keyword,1)
+
+
+<MainViewModel.kt>
+ fun remoteDummy() = viewModelScope.launch {
+        _dummyData.value = repository.fetchDummy()
+    }
+
+    fun search() = viewModelScope.launch {
+        _searchData.value = repository.searchKeyword(_keyword.value.toString())
+    }
+
+
+<BindingAdapter.kt>
+    @JvmStatic
+    @BindingAdapter("android:image")
+    fun imageBind(view : ImageView , imageUrl : String){
+        Glide.with(view)
+            .load(imageUrl)
+            .into(view)
+    }
+
+성장과제에서 각가의 api에서 값을 받는데 , 첫번쨰 성장과제에서 이미지 url을 받기 때문에 이를 imageview에 넣어줄떄는 bindingAdapter를 사용해 적용하였고 , 카카오 api는 api키를 받아 이를 적용시켜서 검색을 진행할 수 있도록 했습니다
+또한 기존의 repository패턴을 이용해 viewModel에서 이값을 받아 view에서 보여주도록 구조를 작성했습니다
+```
+
